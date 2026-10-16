@@ -1,0 +1,56 @@
+
+-- Объявляем переменные с различными типами данных для даты и времени
+DECLARE @MyTime TIME = '14:30:00';
+DECLARE @MyDate DATE = '2023-10-25';
+DECLARE @MyDateTime DATETIME = '2023-10-25 14:30:00.123';
+
+-- Выводим значения переменных
+SELECT 
+    @MyTime AS [Time_Value],
+    @MyDate AS [Date_Value],
+    @MyDateTime AS [DateTime_Value];
+GO
+
+
+
+
+DECLARE @MyDateTime2 DATETIME2 = '2023-10-25 14:30:00.1234567';
+DECLARE @MyDateTimeOffset DATETIMEOFFSET = '2023-10-25 14:30:00.1234567 +03:00';
+
+
+SELECT 
+    @MyDateTime2 AS [DateTime2_Value],
+    @MyDateTimeOffset AS [DateTimeOffset_Value];
+GO
+
+
+
+DECLARE @CurrentDate DATETIME = GETDATE();
+
+
+SELECT 
+    @CurrentDate AS [Исходная дата],
+    CAST(@CurrentDate AS DATE) AS [CAST в DATE],
+    CAST(@CurrentDate AS TIME) AS [CAST в TIME],
+    CAST(@CurrentDate AS VARCHAR(20)) AS [CAST в VARCHAR(20)],
+    CAST(@CurrentDate AS NVARCHAR(30)) AS [CAST в NVARCHAR(30)];
+GO
+
+
+DECLARE @CurrentDate DATETIME = GETDATE();
+
+SELECT 
+    @CurrentDate AS [Исходная дата],
+    -- Стиль 1: mm/dd/yy
+    CONVERT(VARCHAR(10), @CurrentDate, 1) AS [Стиль 1 (mm/dd/yy)],
+    -- Стиль 101: mm/dd/yyyy
+    CONVERT(VARCHAR(10), @CurrentDate, 101) AS [Стиль 101 (mm/dd/yyyy)],
+    -- Стиль 104: dd.mm.yyyy (немецкий формат)
+    CONVERT(VARCHAR(10), @CurrentDate, 104) AS [Стиль 104 (dd.mm.yyyy)],
+    -- Стиль 112: yyyymmdd (ISO формат)
+    CONVERT(VARCHAR(10), @CurrentDate, 112) AS [Стиль 112 (yyyymmdd)],
+    -- Стиль 120: yyyy-mm-dd hh:mi:ss (ODBC канонический)
+    CONVERT(VARCHAR(19), @CurrentDate, 120) AS [Стиль 120 (ISO8601)];
+GO
+
+PRINT 'Все задания успешно выполнены!';
